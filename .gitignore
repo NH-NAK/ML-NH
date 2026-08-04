@@ -1,10 +1,7 @@
 # Ignore all files by default
 *
 
-# Allow the main mod zips and gitignore
+# Allow the mod zips at the root and gitignore
 !Retribution_Damage_Up_970++.zip
+!drone_view_*.zip
 !.gitignore
-
-# Allow the CHEATS ROBLOX folder and the drone view zip files inside it
-!CHEATS ROBLOX/
-!CHEATS ROBLOX/drone_view_*.zip
