@@ -1,0 +1,6 @@
+# Ignore all files by default
+*
+
+# Whitelist the mod zip and gitignore
+!Retribution_Damage_Up_970++.zip
+!.gitignore
