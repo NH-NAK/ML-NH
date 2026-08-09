@@ -1,11 +1,8 @@
 # Ignore all files by default
 *
 
-# Allow the ml_nh_app folder and its files
-!ml_nh_app/
-!ml_nh_app/**
-
 # Allow the mod zips at the root and gitignore
 !Retribution_Damage_Up_970++.zip
 !drone_view_*.zip
+!SCRIPT ANNOUCER MPL (SFILE.MOBI).zip
 !.gitignore
