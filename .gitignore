@@ -5,5 +5,7 @@
 !Retribution_Damage_Up_970++.zip
 !drone_view_*.zip
 !.gitignore
+!.github/
+!.github/**
 !ml_nh_app/
 !ml_nh_app/**
