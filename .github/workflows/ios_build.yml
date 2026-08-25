@@ -17,10 +17,10 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Java Development Kit (JDK)
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -37,7 +37,7 @@ jobs:
         working-directory: ml_nh_app
 
       - name: Cache CocoaPods
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ml_nh_app/ios/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('ml_nh_app/ios/Podfile.lock') }}
@@ -57,7 +57,7 @@ jobs:
         working-directory: ml_nh_app
 
       - name: Upload .ipa Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ml_nh_app-ios-ipa
           path: ml_nh_app.ipa
