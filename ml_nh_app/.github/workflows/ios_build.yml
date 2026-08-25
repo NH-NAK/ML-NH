@@ -1,0 +1,63 @@
+name: Flutter iOS Build (.ipa)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch: # Allows manual trigger from GitHub Web UI
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java Development Kit (JDK)
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: |
+          flutter pub get
+        working-directory: ml_nh_app
+
+      - name: Cache CocoaPods
+        uses: actions/cache@v3
+        with:
+          path: ml_nh_app/ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ml_nh_app/ios/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Build iOS xcarchive (No Codesign)
+        run: |
+          flutter build ipa --no-codesign
+        working-directory: ml_nh_app
+
+      - name: Package App into .ipa (TrollStore / Sideload Friendly)
+        run: |
+          mkdir -p Payload
+          cp -r build/ios/archive/Runner.xcarchive/Products/Applications/Runner.app Payload/
+          zip -r ../ml_nh_app.ipa Payload
+        working-directory: ml_nh_app
+
+      - name: Upload .ipa Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ml_nh_app-ios-ipa
+          path: ml_nh_app.ipa
